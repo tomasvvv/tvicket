@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  password  String
+  createdAt DateTime  @default(now())
+  Tickets   Ticket[]
+  Comments  Comment[]
+
+  @@map("users")
+}
+
+model Ticket {
+  id          String    @id @default(uuid())
+  title       String
+  description String
+  price       Float
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  Comments    Comment[]
+  createdAt   DateTime  @default(now())
+
+  @@map("tickets")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  Ticket    Ticket?  @relation(fields: [ticketId], references: [id])
+  ticketId  String?
+  User      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  comment   String
+
+  @@map("comments")
+}
