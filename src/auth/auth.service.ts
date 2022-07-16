@@ -7,7 +7,7 @@ import { PrismaError } from 'prisma-error-enum';
 
 import { SigninDto, SignupDto } from './dto/signup.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { TokenSignUpResponse } from './types/signup';
+import { JwtSignPayload, TokenSignUpResponse } from './types/jwt';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +17,7 @@ export class AuthService {
     private jwt: JwtService,
   ) {}
 
-  async signup(dto: SignupDto) {
+  async signUp(dto: SignupDto) {
     const { password, name } = dto;
 
     const hash = await argon.hash(password);
@@ -72,7 +72,7 @@ export class AuthService {
     id: User['id'],
     name: User['name'],
   ): Promise<TokenSignUpResponse> {
-    const payload = {
+    const payload: JwtSignPayload = {
       sub: id,
       name,
     };
