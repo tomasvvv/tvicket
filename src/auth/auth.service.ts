@@ -5,9 +5,10 @@ import { ConfigService } from '@nestjs/config';
 import { User } from '@prisma/client';
 import { PrismaError } from 'prisma-error-enum';
 
-import { SigninDto, SignupDto } from './dto/signup.dto';
+import { SignupDto } from './dto/signup.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtSignPayload, TokenSignUpResponse } from './types/jwt';
+import { SigninDto } from './dto/signin.dto';
 
 @Injectable()
 export class AuthService {
@@ -59,7 +60,7 @@ export class AuthService {
       throw new ForbiddenException('Incorrect name/password');
     }
 
-    const match = await argon.verify(password, user.password);
+    const match = await argon.verify(user.password, password);
 
     if (!match) {
       throw new ForbiddenException('Incorrect name/password');
