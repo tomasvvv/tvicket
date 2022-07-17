@@ -6,7 +6,7 @@ import { User } from '@prisma/client';
 import { PrismaError } from 'prisma-error-enum';
 
 import { SignupDto } from './dto/signup.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { JwtSignPayload, TokenSignUpResponse } from './types/jwt';
 import { SigninDto } from './dto/signin.dto';
 

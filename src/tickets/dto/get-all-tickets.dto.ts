@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import { IsObject, IsOptional, IsUUID } from 'class-validator';
-import { PaginationDto } from 'src/global-dtos/pagination.dto';
+import { PaginationDto } from '../../global-dtos/pagination.dto';
 
 class GetAllTicketsFilterDto {
   @IsUUID()

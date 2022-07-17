@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { Ticket, User } from '@prisma/client';
-import { GetUser } from 'src/auth/decorators/get-user.decorator';
-import { JwtGuard } from 'src/auth/guards/jwt.guard';
+import { GetUser } from '../auth/decorators/get-user.decorator';
+import { JwtGuard } from '../auth/guards/jwt.guard';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { GetAllTicketsDto } from './dto/get-all-tickets.dto';
 import { TicketsService } from './tickets.service';

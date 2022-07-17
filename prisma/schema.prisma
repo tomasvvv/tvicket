@@ -26,7 +26,7 @@ model Ticket {
   title       String
   description String
   price       Float
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId      String
   Comments    Comment[]
   createdAt   DateTime  @default(now())
@@ -36,9 +36,9 @@ model Ticket {
 
 model Comment {
   id        String   @id @default(uuid())
-  Ticket    Ticket?  @relation(fields: [ticketId], references: [id])
+  Ticket    Ticket?  @relation(fields: [ticketId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   ticketId  String?
-  User      User     @relation(fields: [userId], references: [id])
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId    String
   createdAt DateTime @default(now())
   comment   String

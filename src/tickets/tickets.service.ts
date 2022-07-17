@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Ticket, User } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import {
   generatePaginatedResult,
   getPrismaPaginationParams,
-} from 'src/utils/pagination';
+} from '../utils/pagination';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { GetAllTicketsDto } from './dto/get-all-tickets.dto';
 
