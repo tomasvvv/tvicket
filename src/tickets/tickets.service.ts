@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { Ticket, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { UserService } from 'src/user/user.service';
+import {
+  generatePaginatedResult,
+  getPrismaPaginationParams,
+} from 'src/utils/pagination';
 import { CreateTicketDto } from './dto/create-ticket.dto';
+import { GetAllTicketsDto } from './dto/get-all-tickets.dto';
 
 @Injectable()
 export class TicketsService {
-  constructor(private prisma: PrismaService, private users: UserService) {}
+  constructor(private prisma: PrismaService) {}
 
   async createOne(dto: CreateTicketDto, userId: User['id']) {
     const { price, description, title } = dto;
@@ -26,7 +30,19 @@ export class TicketsService {
     return ticket;
   }
 
-  async getAll() {
-    return await this.prisma.ticket.findMany();
+  async getAll(dto: GetAllTicketsDto) {
+    const { filters = {} } = dto;
+    const result = await this.prisma.ticket.findMany({
+      ...getPrismaPaginationParams(dto),
+      where: {
+        ...filters,
+      },
+    });
+
+    return generatePaginatedResult(result, dto);
+  }
+
+  async getById(id: Ticket['id']) {
+    return await this.prisma.ticket.findUnique({ where: { id } });
   }
 }
