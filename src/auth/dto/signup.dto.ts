@@ -10,5 +10,3 @@ export class SignupDto {
   @IsNotEmpty()
   password: string;
 }
-
-export class SigninDto extends SignupDto {}
